@@ -44,6 +44,7 @@
       overflow: auto;
     }
   </style>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
 </head>
 <body>
   <h2>Dịch</h2>
@@ -57,8 +58,23 @@
   <h3>Kết quả</h3>
   <pre id="result">Chưa có kết quả.</pre>
 
+  <h4 id="ten-que" onclick="toggleElement('que')">Quẻ chủ</h4>
+  <zero-md id="que" style="display: none;"></zero-md>
+  <h4 id="ten-que-bien" onclick="toggleElement('que-bien')">Quẻ biến</h4>
+  <zero-md id="que-bien" style="display: none;"></zero-md>
+
   <script src="dich.js"></script>
   <script>
+    // Function to toggle the visibility of an element
+    function toggleElement(elementId) {
+      var x = document.getElementById(elementId);
+      if (x.style.display === "none" || getComputedStyle(x).display === "none") {
+        x.style.display = "block"; // Or use '' to restore default
+      } else {
+        x.style.display = "none";
+      }
+    }
+
     function hienThiKetQua() {
       var inputEl = document.getElementById("inputText");
       var resultEl = document.getElementById("result");
@@ -71,6 +87,11 @@
 
       var kq = dich(text);
       resultEl.textContent = JSON.stringify(kq, null, 2);
+
+      document.getElementById("ten-que").textContent = kq.Que;
+      document.getElementById("ten-que-bien").textContent = kq.QueBien;
+      document.getElementById("que").setAttribute("src", `kinhdich/${kq.QueNoAccents}.md`);
+      document.getElementById("que-bien").setAttribute("src", `kinhdich/${kq.QueBienNoAccents}.md`);
     }
 
     document
@@ -84,7 +105,7 @@
           event.preventDefault();
           hienThiKetQua();
         }
-    });
+      });
   </script>
 </body>
 </html>

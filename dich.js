@@ -106,8 +106,23 @@ const BINARY_TO_TRIGRAM = Object.fromEntries(
   Object.entries(TRIGRAM_TO_BINARY).map(([k, v]) => [v, Number(k)]),
 );
 
+
+function removeVietnameseAccents(str) {
+  // Normalize the string to NFD (Normalization Form Decomposition)
+  // This breaks characters like 'é' into 'e' and the accent mark
+  str = str.normalize("NFD");
+
+  // Use a regular expression to remove the accent marks (combining diacritical marks range)
+  str = str.replace(/[\u0300-\u036f]/g, "");
+  
+  // The normalization process doesn't convert the Vietnamese 'đ' to 'd'.
+  // We add a specific replacement for this case.
+  str = str.replace(/đ/g, "d").replace(/Đ/g, "D");
+
+  return str;
+}
+
 /**
- * Port trực tiếp của hàm dich(text, base=10) trong batquai.ipynb.
  *
  * @param {string} text
  * @param {number} [base=10]
@@ -176,8 +191,11 @@ function dich(text) {
     HaoDong: haoDong || null,
     Que: tenQue,
     QueBien: tenQueBien,
+    QueNoAccents: removeVietnameseAccents(tenQue).toLowerCase().replace(/ /g, "-"),
+    QueBienNoAccents: removeVietnameseAccents(tenQueBien).toLowerCase().replace(/ /g, "-"),
   };
 }
+
 
 if (typeof module !== "undefined" && typeof module.exports !== "undefined") {
   module.exports = {
