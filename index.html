@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Dịch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -12,7 +13,7 @@
       line-height: 1.5;
     }
 
-    h2 {
+    h1 {
       text-align: center;
     }
 
@@ -43,11 +44,15 @@
       border-radius: 4px;
       overflow: auto;
     }
+	
+	hr {
+      border-top: 6px solid purple;
+    }
   </style>
   <script type="module" src="https://cdn.jsdelivr.net/npm/zero-md@3?register"></script>
 </head>
 <body>
-  <h2>Dịch</h2>
+  <h1>Dịch</h2>
 
   <input id="inputText" type="text" placeholder="Ví dụ: số điện thoại, email..." />
 
@@ -55,12 +60,13 @@
     <button id="calcButton" type="button">Tính kết quả</button>
   </div>
 
-  <h3>Kết quả</h3>
-  <pre id="result">Chưa có kết quả.</pre>
+  <!-- <h3>Kết quả</h3> -->
+  <!-- <pre id="result">Chưa có kết quả.</pre> -->
 
-  <h4 id="ten-que" onclick="toggleElement('que')">Quẻ chủ</h4>
+  <h1 id="ten-que" onclick="toggleElement('que')">Quẻ chủ</h1>
   <zero-md id="que" style="display: none;"></zero-md>
-  <h4 id="ten-que-bien" onclick="toggleElement('que-bien')">Quẻ biến</h4>
+  <hr></hr>
+  <h1 id="ten-que-bien" onclick="toggleElement('que-bien')">Quẻ biến</h1>
   <zero-md id="que-bien" style="display: none;"></zero-md>
 
   <script src="dich.js"></script>
@@ -86,7 +92,7 @@
       }
 
       var kq = dich(text);
-      resultEl.textContent = JSON.stringify(kq, null, 2);
+      <!-- resultEl.textContent = JSON.stringify(kq, null, 2); -->
 
       document.getElementById("ten-que").textContent = kq.Que;
       document.getElementById("ten-que-bien").textContent = kq.QueBien;
