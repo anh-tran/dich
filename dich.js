@@ -108,6 +108,7 @@ const BINARY_TO_TRIGRAM = Object.fromEntries(
 
 
 function removeVietnameseAccents(str) {
+  if (["Thuần Càn", "Thuần Cấn"].includes(str)) return str;
   // Normalize the string to NFD (Normalization Form Decomposition)
   // This breaks characters like 'é' into 'e' and the accent mark
   str = str.normalize("NFD");
